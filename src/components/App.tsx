@@ -10,10 +10,23 @@ interface AppState {
 export class App extends React.Component <{}, AppState> {
   private authService : AuthService = new AuthService();
 
+  constructor(props: any) {
+    super(props);
+
+    this.setUser = this.setUser.bind(this)
+  }
+
+  private setUser(user: User) {
+    this.setState({
+      user: user
+    })
+  }
+
   render() {
     return (
-      
-      <div>App works <Login authService={this.authService}/></div>
+      <div>App works 
+        <Login authService={this.authService} setUser={this.setUser}/>
+      </div>
     )
   }
 }
