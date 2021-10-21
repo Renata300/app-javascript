@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from "react";
 import { User } from "../model/Model";
 import { AuthService } from "../services/AuthService";
+import history from '../utilities/history'
 
 interface LoginProps {
     authService: AuthService,
@@ -43,11 +44,12 @@ export class Login extends React.Component <LoginProps, LoginState> {
         if (result) {
             this.setState({loginSuccesfull: true}) // se existirem esses dados, simplesmente faz o login
             this.props.setUser(result)
-            console.log(result)
+            //console.log(result)
+            history.push('/profile')
         }
         else {
             this.setState({loginSuccesfull: false})
-            console.log('wrong login') // se nao existir, mostra uma mensagem de erro
+            //console.log('wrong login') // se nao existir, mostra uma mensagem de erro
         }
     }
 
