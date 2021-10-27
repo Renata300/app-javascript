@@ -50,7 +50,7 @@ export class Profile extends React.Component<ProfileProps, ProfileState> {
             profileSpace = <div>
                 <h3> Hello {this.props.user.userName} </h3>
                 Here are your attributes:
-                {this.renderUserAttributes}
+                { this.renderUserAttributes() }
             </div>
         } else {
             profileSpace = <div> 
