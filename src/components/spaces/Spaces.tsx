@@ -2,9 +2,12 @@ import { Component } from "react";
 import { Space } from "../../model/Model";
 import { DataService } from "../../services/DataService";
 import { SpaceComponent } from "./SpaceComponent";
+import { ConfirmModalComponent } from './ConfirmModalComponent';
 
 interface SpaceState {
-    spaces: Space[]
+    spaces: Space[],
+    showModal: boolean,
+    modalContent: string
 }
 
 interface SpaceProps {
@@ -15,9 +18,12 @@ export class Spaces extends Component<SpaceProps, SpaceState> {
     constructor (props: SpaceProps) {
         super(props)
         this.state = {
-            spaces: []
+            spaces: [],
+            showModal: false,
+            modalContent: ''
         }
         this.reserveSpace = this.reserveSpace.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     async componentDidMount () {
@@ -28,7 +34,18 @@ export class Spaces extends Component<SpaceProps, SpaceState> {
     }
 
     private async reserveSpace(spaceId: string) {
-
+        const reservationResult = await this.props.dataService.reserveSpace(spaceId);
+        if (reservationResult) {
+            this.setState ({
+                showModal: true,
+                modalContent: `You reserved the space with the id ${spaceId} and got the reservation number ${reservationResult}`
+            })
+        } else {
+            this.setState ({
+                showModal: true,
+                modalContent: `You can not reserve the space with the id ${spaceId}`
+            })
+        }
     }
 
     private renderSpaces() {
@@ -42,6 +59,13 @@ export class Spaces extends Component<SpaceProps, SpaceState> {
                     reserveSpace={this.reserveSpace}/>
             )
         }
+        return rows;
+    }
+    private closeModal() {
+        this.setState({
+            showModal: false,
+            modalContent: ''
+        })
     }
 
     render() {
@@ -49,6 +73,7 @@ export class Spaces extends Component<SpaceProps, SpaceState> {
             <div>
                 <h2>Welcome to the Spaces page</h2>
                 {this.renderSpaces()}
+                <ConfirmModalComponent close={this.closeModal} content={this.state.modalContent} show={this.state.showModal} />
             </div>
         )
     }
