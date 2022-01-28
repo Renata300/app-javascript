@@ -3,18 +3,18 @@ import genericImage from '../../assets/nz1.jpg'
 import './SpaceComponent.css'
 
 interface SpaceComponentProps {
-    spceId: string,
+    spaceId: string,
     name: string,
     location: string,
-    protoUrl?: string // por ser opcional, colocamos esse '?'
-    reserveSpace: (spaceId: string) => void //esse aqui corresponde ao botao 'Reserve'
+    photoUrl?: string // por ser opcional, colocamos esse '?'
+    reserveSpace: (spaceId: string) => void // esse aqui corresponde ao botao 'Reserve'
 }
 
 export class SpaceComponent extends Component<SpaceComponentProps> {
 
     private renderImage() {
-        if (this.props.protoUrl) {
-            return <img src={this.props.protoUrl} alt=''/>
+        if (this.props.photoUrl) {
+            return <img src={this.props.photoUrl} alt=''/>
         } else {
             return <img src={genericImage} alt=''/>
         }
@@ -26,9 +26,9 @@ export class SpaceComponent extends Component<SpaceComponentProps> {
             {this.renderImage()}
             {/* 'class' e 'className' sao a mesma coisa */}
             <label className='name'>{this.props.name}</label><br/> 
-            <label className='spaceId'>{this.props.spceId}</label><br/> 
+            <label className='spaceId'>{this.props.spaceId}</label><br/> 
             <label className='location'>{this.props.location}</label><br/> 
-            <button onClick={() => this.props.reserveSpace(this.props.spceId)}>Reserve</button>
+            <button onClick={() => this.props.reserveSpace(this.props.spaceId)}>Reserve</button>
         </div>
 
         

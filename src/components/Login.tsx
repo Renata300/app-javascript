@@ -66,7 +66,7 @@ export class Login extends React.Component <LoginProps, LoginState> {
 
         return (
             <div>
-                <h2> Please login </h2>
+                <h2>Please login</h2>
                 <form onSubmit={e => this.handleSubmit(e)}>
                     <input value={this.state.userName} onChange={e => this.setUserName(e)}/><br/>
                     <input value={this.state.password} onChange={e => this.setPassword(e)} type='password'/><br/>
